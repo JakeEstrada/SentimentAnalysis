@@ -12,15 +12,13 @@ def est_impact_scores():
     #return rt/market-adj return
     returns = df['market_adj_return']
 
-    #volatility sigmat
-    total_volatility = returns.rolling(window=3, min_periods=3).std()
-    total_volatility = total_volatility.fillna(method='bfill')
+    volatility = df['market_adj_volatility']
 
     #normalized return
     zr = (returns - returns.mean()) / returns.std()
 
     #normalized volatility
-    z_sig = (total_volatility - total_volatility.mean()) / total_volatility.std()
+    z_sig = (volatility - volatility.mean()) / volatility.std()
 
     #impact score initialized with zeros
     impact_score = np.zeros(len(df))
@@ -32,7 +30,7 @@ def est_impact_scores():
 
     df['impact_score'] = impact_score.astype(int)
 
-    df.to_csv('historical_prices_impact.csv', index=False)
+    df.to_csv('historical_prices_impact_new.csv', index=False)
 
     print('Created historical_prices_impact.csv successfully')
     print(f"Impact score distribution:\n{df['impact_score'].value_counts().sort_index()}")
