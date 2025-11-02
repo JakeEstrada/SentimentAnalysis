@@ -7,12 +7,12 @@ def calc_market_adj_return_and_volatility():
     historical_prices = pd.read_csv('historical_prices.csv')
 
     historical_prices['date'] = pd.to_datetime(historical_prices['date'])
-    start_date = '2009-01-01'
-    end_date = '2014-12-31'
+    start_date = '2015-01-01'
+    end_date = '2020-12-31'
 
     historical_prices_filtered = historical_prices[(historical_prices['date'] >= start_date) & (historical_prices['date'] <= end_date)].copy()
 
-    print(f'Total length of historical prices from 2009-2014: {len(historical_prices_filtered)}')
+    print(f'Total length of historical prices from 2015-2020: {len(historical_prices_filtered)}')
     length = len(historical_prices_filtered)
     historical_prices_filtered.sort_values(['symbol', 'date'], inplace=True)
     historical_prices_filtered = historical_prices_filtered[historical_prices_filtered['close'] > 0]
